@@ -1,0 +1,19 @@
+<h1 class="H1 flex justify-center text-xl font-bold">{{mainTitle | translate}}</h1>
+<mat-divider></mat-divider>
+<br>
+<p>{{inputTitle | translate}}</p>
+<div class="flex justify-center space-x-2 mt-4">
+    <div *ngFor="let code of codes; let i = index" appearance="fill">
+        <input [(ngModel)]="valueCodes[i]" maxlength="1" (keydown)="handleKeyDown($event, i)"
+            (input)="moveFocus($event, i)" #codeInput (ngModelChange)="codeOutput()"
+            class="w-10 h-12 text-center border rounded text-xl borderCodeInput" />
+    </div>
+</div>
+<br>
+<div class="flex justify-center">
+    <mat-error *ngIf="isNotNumberError">{{'error.numbers' | translate}}<br></mat-error>
+    <mat-error *ngIf="isNotNullError">{{'error.numbers(6)' | translate}}<br></mat-error>
+</div>
+<div class="flex justify-center">
+    <button mat-button (click)="refresOutput()"><mat-icon>refresh</mat-icon><span class="mt-1">{{'button.refreshMail' | translate}}</span></button>
+</div>

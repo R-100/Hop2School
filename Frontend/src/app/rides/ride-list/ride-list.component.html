@@ -1,0 +1,17 @@
+<div class="flex flex-col h-full" *ngIf="rides.length !== 0">
+    <h1 class="text-2xl font-bold pl-2">{{ mainTitle | translate}}</h1>
+    <div class="flex-1 overflow-y-auto p-2">
+        <div *ngFor="let ride of pagedRides" class="pb-2">
+            <app-ride-card [ride]="ride" [isFindCardRide]="isFindCardRide"></app-ride-card>
+        </div>
+    </div>
+    <mat-paginator [length]="rides.length" [pageSize]="pageSize" [pageSizeOptions]="[pageSize]" (page)="onPageChange($event)"
+        aria-label="Select page">
+    </mat-paginator>
+</div>
+<div *ngIf="rides.length === 0" class="w-full h-full">
+    <h1 class="text-2xl font-bold pl-2">{{ mainTitle | translate}}</h1>
+    <div class="flex justify-center items-center w-full h-full">
+        <p>{{error | translate}}</p>
+    </div>
+</div>

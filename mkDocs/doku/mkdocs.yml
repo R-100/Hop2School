@@ -1,0 +1,24 @@
+site_name: Hop2School
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  language: en
+  features:
+    - navigation.tabs 
+    - search.highlight 
+    - search.suggest 
+    - navigation.instant  
+    - navigation.top  
+  
+nav:
+  - Home / Introduction: index.md
+  - Dashboard: dashbord.md
+  - Find ride offers: findRides.md
+  - My ride offers: myRides.md
+  - Miscellaneous: others.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences

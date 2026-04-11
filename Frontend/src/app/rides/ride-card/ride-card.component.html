@@ -1,0 +1,35 @@
+<mat-card appearance="outlined">
+    <div class="flex items-stretch">
+        <div class="flex items-center space-x-2">
+            <div class="flex items-center h-full ml-2"><mat-icon>{{isDriver ? 'directions_car' : 'group'}}</mat-icon>
+            </div>
+            <div class="w-px mainLine h-full"></div>
+        </div>
+        <div class="flex-1 px-4 flex flex-col justify-center p-2">
+            <div class="text-base font-semibold">
+                {{ 'label.cardTitle' | translate: {
+                startTime: (ride?.startTime | date:'HH:mm'),
+                endTime: (ride?.endTime | date:'HH:mm'),
+                date: (ride?.startDate | date:'d.M.y')
+                } }}
+            </div>
+            <div class="text-sm secundaryText">{{ride?.city}} {{ride?.postalCode}}, {{ride?.street}}
+                {{ride?.houseNumber}}</div>
+        </div>
+        <div class="flex items-center space-x-2 pr-2 p-2">
+            <button *ngIf="!isFindCardRide" mat-mini-fab (click)="openRideInfo()" matTooltip="{{'tooltip.info' | translate}}">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button *ngIf="isFindCardRide" mat-mini-fab (click)="openRide()" matTooltip="{{'tooltip.info' | translate}}">
+                <mat-icon>check</mat-icon>
+            </button>
+            <a *ngIf="!isFindCardRide" mat-mini-fab routerLink="/chat/{{ride?.id}}" matTooltip="{{'tooltip.chat' | translate}}">
+                <mat-icon>chat</mat-icon>
+            </a>
+            <button *ngIf="isButtonVisible() && !isFindCardRide" mat-mini-fab (click)="rideCancel()"
+                matTooltip="{{'tooltip.clear' | translate}}">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-card>

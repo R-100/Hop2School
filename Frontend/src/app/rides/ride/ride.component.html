@@ -1,0 +1,90 @@
+<div class="flex justify-center items-center w-full min-h-[calc(100%-32px)] p-4">
+    <mat-card appearance="outlined" class="w-full max-w-screen-lg">
+      <mat-card-content>
+        <div class="grid md:grid-cols-2 grid-cols-1">
+          <div class="p-2">
+            <h1 class="flex justify-center text-2xl font-bold">
+              {{ (isUpdate ? 'label.updateRide' : 'label.createRide') | translate }}
+            </h1>
+            <mat-divider></mat-divider>
+            <div class="p-2">
+              <form [formGroup]="rideFrom">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-2">
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.postalCode' | translate}}</mat-label>
+                    <input matInput formControlName="postalCode" />
+                    <mat-error *ngIf="rideFrom.get('postalCode')?.hasError('required') && rideFrom.get('postalCode')?.touched">
+                      {{"error.postalCode" | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.city' | translate}}</mat-label>
+                    <input matInput formControlName="city" />
+                    <mat-error *ngIf="rideFrom.get('city')?.hasError('required') && rideFrom.get('city')?.touched">
+                      {{"error.notNull" | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.street' | translate}}</mat-label>
+                    <input matInput formControlName="street" />
+                  </mat-form-field>
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.houseNumber' | translate}}</mat-label>
+                    <input matInput formControlName="houseNumber" />
+                  </mat-form-field>
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.seats' | translate}}</mat-label>
+                    <input matInput formControlName="seats" type="number" min="1" />
+                  </mat-form-field>
+                  <mat-form-field floatLabel="always" class="w-full">
+                    <mat-label>{{'input.price' | translate}}</mat-label>
+                    <input matInput formControlName="price" type="text" placeholder="0,00" />
+                    <span matTextSuffix>€</span>
+                  </mat-form-field>
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.startTime' | translate}}</mat-label>
+                    <input matInput formControlName="startTime" type="time" />
+                    <mat-error *ngIf="rideFrom.get('startTime')?.hasError('required') && rideFrom.get('startTime')?.touched">
+                      {{"error.notNull" | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="w-full">
+                    <mat-label>{{'input.endTime' | translate}}</mat-label>
+                    <input matInput formControlName="endTime" type="time" />
+                    <mat-error *ngIf="rideFrom.get('endTime')?.hasError('required') && rideFrom.get('endTime')?.touched">
+                      {{"error.afterTime" | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="flex justify-center p-2">
+                  <mat-form-field class="w-full sm:w-1/2">
+                    <mat-label>{{ 'input.startDate' | translate }}</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="startDate" />
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="rideFrom.get('startDate')?.hasError('required') && rideFrom.get('startDate')?.touched">
+                      {{"error.afterDate" | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </form>
+            </div>
+            <div class="flex justify-end flex-wrap gap-2 p-2">
+              <button mat-button routerLink="/ride/my">
+                {{'button.cancel' | translate}}
+              </button>
+              <button mat-flat-button (click)="submitForm()">
+                {{ (isUpdate ?'button.update' : "button.add") | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="p-2 w-full">
+            <div class="w-full h-64 md:h-full">
+              <app-solo-map [findAdress]="adress" class="w-full h-full block"></app-solo-map>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

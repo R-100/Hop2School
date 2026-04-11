@@ -1,0 +1,71 @@
+<div class="p-4 min-h-[calc(100%-32px)]">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 w-full">
+        <mat-card appearance="outlined" class="col-span-1 lg:col-span-1">
+            <mat-card-content>
+                <app-donut-chart [percentage]="averageRideLoad" mainTitle="label.averageDrives.title"
+                    mainPart="label.averageDrives.mainPart" residualPart="label.averageDrives.residualPart">
+                </app-donut-chart>
+            </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="col-span-1 lg:col-span-2">
+            <mat-card-content>
+                <app-ride-list error="error.noActiveRides" [rides]="myActiveRidesAndTrips"
+                    mainTitle="label.activeRides">
+                </app-ride-list>
+            </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="col-span-1 lg:col-span-2">
+            <mat-card-content>
+                <app-ride-list error="error.noPendingRides" [rides]="myPendingRidesAndTrips"
+                    mainTitle="label.pendingRides">
+                </app-ride-list>
+            </mat-card-content>
+        </mat-card>
+        <div class="flex flex-col gap-4 col-span-1 h-full">
+            <mat-card appearance="outlined" class="w-full h-1/2">
+                <h2 class="text-xl text-left mt-4 ml-4">{{'label.allTimeProfit' | translate}}</h2>
+                <h1 class="text-4xl font-bold text-left ml-4 mt-8">
+                    {{profit}} {{'label.currencySymbol' | translate}}
+                </h1>
+            </mat-card>
+            <mat-card appearance="outlined" class="w-full h-1/2 relative flex flex-col justify-between">
+                <div>
+                    <h2 class="text-xl text-left mt-4 ml-4">
+                        {{ (isMyRide ? 'label.allTimeRides' : 'label.allTimeTrips') | translate }}
+                    </h2>
+                    <h1 class="text-4xl font-bold text-left ml-4 mt-8">
+                        {{ isMyRide ? allTimeMyRides : allTimeMyTrips }}
+                    </h1>
+                </div>
+                <div class="absolute bottom-2 right-2">
+                    <button mat-icon-button (click)="isMyRide = !isMyRide">
+                        <mat-icon>cached</mat-icon>
+                    </button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mt-4">
+        <mat-card appearance="outlined" class="col-span-1 lg:col-span-2">
+            <mat-card-content>
+                <app-ride-list error="error.noMyTrips" [rides]="allMyTrips" mainTitle="label.allMyTrips">
+                </app-ride-list>
+            </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="col-span-1 lg:col-span-3">
+            <mat-card-content>
+                <app-column-chart (onYearChangeEvent)="onYearChange($event)" [currentYear]="currentYear" [monthsData]="monthsData" [xAxisLabels]="monthsLabel"
+                    [maxYAxisLabels]="40" [yAxisLabels]="[40,35,30,25,20,15,10,5,0]" mainTitle="label.columnChart.title"
+                    mainPart="label.columnChart.mainPart" secondaryPart="label.columnChart.secondaryPart">
+                </app-column-chart>
+            </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="col-span-1">
+            <mat-card-content>
+                <app-donut-chart [percentage]="reliabilityAverage" mainTitle="label.reliability.title"
+                    mainPart="label.reliability.mainPart" residualPart="label.reliability.residualPart">
+                </app-donut-chart>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

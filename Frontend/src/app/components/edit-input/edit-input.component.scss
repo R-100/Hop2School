@@ -1,0 +1,16 @@
+.form-field-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.badgeButton {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    z-index: 10;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    min-width: 0;
+    border-radius: 50%;
+}

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+           http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="2026-04-11 create users" author="R-100">
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lastname" type="VARCHAR(255)"/>
+
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="active_code" type="INT" defaultValueNumeric="0"/>
+
+            <column name="phone_number" type="VARCHAR(50)"/>
+
+            <column name="report_status" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="report_count" type="INT" defaultValueNumeric="0"/>
+
+            <column name="clazz" type="VARCHAR(100)"/>
+
+            <column name="is_white_mode" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="language" type="VARCHAR(10)" defaultValue="de"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2026-04-11 create rides" author="R-100">
+        <createTable tableName="rides">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="driver_id" type="UUID"/>
+
+            <column name="postal_code" type="VARCHAR(20)"/>
+            <column name="street" type="VARCHAR(255)"/>
+            <column name="house_number" type="VARCHAR(50)"/>
+            <column name="city" type="VARCHAR(255)"/>
+
+            <column name="start_date" type="DATE"/>
+            <column name="create_date" type="DATE"/>
+
+            <column name="start_time" type="TIME"/>
+            <column name="end_time" type="TIME"/>
+
+            <column name="price" type="FLOAT"/>
+            <column name="seats" type="INT"/>
+
+            <column name="status" type="INT"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="rides"
+                baseColumnNames="driver_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_rides_driver"/>
+    </changeSet>
+
+    <changeSet id="2026-04-11 create user ride" author="R-100">
+        <createTable tableName="user_ride">
+            <column name="ride_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="user_ride"
+                columnNames="ride_id, user_id"
+                constraintName="pk_user_ride"/>
+
+        <addForeignKeyConstraint
+                baseTableName="user_ride"
+                baseColumnNames="ride_id"
+                referencedTableName="rides"
+                referencedColumnNames="id"
+                constraintName="fk_user_ride_ride"/>
+
+        <addForeignKeyConstraint
+                baseTableName="user_ride"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_user_ride_user"/>
+    </changeSet>
+
+    <changeSet id="2026-04-11 create messages" author="R-100">
+        <createTable tableName="messages">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="content" type="TEXT"/>
+            <column name="timestamp" type="TIMESTAMP"/>
+
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="ride_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="messages"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_messages_user"/>
+
+        <addForeignKeyConstraint
+                baseTableName="messages"
+                baseColumnNames="ride_id"
+                referencedTableName="rides"
+                referencedColumnNames="id"
+                constraintName="fk_messages_ride"/>
+    </changeSet>
+
+    <changeSet id="2026-04-11 create reports" author="R-100">
+        <createTable tableName="reports">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="subject" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="timestamp" type="TIMESTAMP"/>
+
+            <column name="reporter_id" type="UUID"/>
+            <column name="reported_user_id" type="UUID"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="reports"
+                baseColumnNames="reporter_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_reports_reporter"/>
+
+        <addForeignKeyConstraint
+                baseTableName="reports"
+                baseColumnNames="reported_user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_reports_reported_user"/>
+    </changeSet>
+
+</databaseChangeLog>

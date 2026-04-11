@@ -1,0 +1,82 @@
+<div class="flex justify-center items-center" style="height: calc(100% - 32px);">
+  <mat-card appearance="outlined" class="w-2/3">
+    <mat-card-title>
+      <div class="p-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="ml-2 items-center h-full flex">
+              <mat-icon><mat-icon>{{isDriver ? 'directions_car' : 'group'}}</mat-icon></mat-icon>
+              <div class="text-base font-semibold ml-2">{{ 'label.messageTitle' | translate: {
+                startTime: (ride?.startTime | date:'HH:mm'),
+                endTime: (ride?.endTime | date:'HH:mm'),
+                date: (ride?.startDate | date:'d.M.y')
+              } }}
+              </div>
+              <div class="text-sm secundaryText ml-2">{{ride?.city}} {{ride?.postalCode}}, {{ride?.street}}
+                {{ride?.houseNumber}}</div>
+              <div class="absolute right-2 text-base font-semibold ml-2">
+                {{ 'label.messageCreater' | translate : { driverName: ride?.driverName, date: (ride?.createDate | date:'d.M.y') } }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="flex flex-col h-[80vh]">
+      <div class="h-[68vh] overflow-y-auto">
+        <div *ngFor="let message of messages" class="w-full">
+          <div *ngIf="isAuthUserId(message.userId)" class="flex justify-end p-2">
+            <div class="relative w-1/2 p-4 messageBg border-1 border rounded-2xl shadow-lg">
+              <div *ngIf="isDriverUser(message.userId)" class="absolute top-0 left-[15px] text-xs messageUsername">
+                {{message.username}}</div>
+              <div *ngIf="!isDriverUser(message.userId)" class="absolute top-0 left-[15px] text-xs">{{message.username}}
+              </div>
+              <div
+                class="absolute right-[-8px] top-[50%] w-0 h-0 border-l-8 border-b-8 border-t-8 border-transparent messageBgBorderLeft">
+              </div>
+              <div class="text-sm messageContent">{{message.content}}</div>
+              <div class="absolute bottom-0 right-[8px] text-xs messageTimestamp">{{message.timestamp | date:'HH:mm'}}
+                ({{message.timestamp | date: 'd.M.y'}})</div>
+            </div>
+          </div>
+          <div *ngIf="!isAuthUserId(message.userId)" class="flex justify-start p-2">
+            <div class="relative w-1/2 p-4 messageBg border-1 border rounded-2xl shadow-lg">
+              <div *ngIf="isDriverUser(message.userId)" class="absolute top-0 left-[15px] text-xs messageUsername">
+                {{message.username}}</div>
+              <div *ngIf="!isDriverUser(message.userId)" class="absolute top-0 left-[15px] text-xs">{{message.username}}
+              </div>
+              <div
+                class="absolute left-[-8px] top-[50%] w-0 h-0 border-r-8 border-b-8 border-t-8 border-transparent messageBgBorderRight">
+              </div>
+              <div class="text-sm messageContent">{{message.content}}</div>
+              <div class="absolute bottom-0 right-[8px] text-xs messageTimestamp">{{message.timestamp | date: 'HH:mm'}}
+                ({{message.timestamp | date: 'd.M.y'}})</div>
+              <div class="absolute top-0 right-[0px] text-xs messageTimestamp">
+                <a mat-icon-button class="w-6 h-6 p-0" routerLink="/report/{{message.userId}}"><mat-icon
+                    style="font-size: 16px;">report_problem</mat-icon></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <form (ngSubmit)="messageSend()" class="flex items-end w-full p-2 gap-2 h-[15vh]">
+        <div class="flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <textarea matInput [placeholder]="('placeholder.send' | translate)"
+              class="resize-none max-h-[48px] m-h-[48px] leading-5" id="content" [(ngModel)]="content"
+              name="content"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="self-end">
+          <div class="flex h-[15vh] items-center">
+            <button mat-mini-fab type="submit">
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

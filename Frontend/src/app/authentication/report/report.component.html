@@ -1,0 +1,38 @@
+<div class="flex justify-center items-center w-full h-full">
+    <mat-card appearance="outlined" class="w-1/3 h-2/3 flex flex-col">
+      <div class="p-2">
+        <h1 class="flex justify-center text-2xl font-bold">{{'label.report' | translate}}</h1>
+        <mat-divider></mat-divider>
+      </div>
+      <mat-card-content class="flex flex-col flex-grow p-2">
+        <form [formGroup]="reportFrom" class="flex flex-col h-full">
+          <div class="mb-2 mt-2">
+            <mat-form-field class="w-full">
+              <mat-label>{{'input.subject' | translate}}</mat-label>
+              <select matNativeControl formControlName="subject" required>
+                <option value="rudeOrInsultingBehavior">{{'select.rudeOrInsultingBehavior' | translate}}</option>
+                <option value="harassment">{{'select.harassment' | translate}}</option>
+                <option value="inappropriateLanguage">{{'select.inappropriateLanguage' | translate}}</option>
+                <option value="suspectedFraud">{{'select.suspectedFraud' | translate}}</option>
+                <option value="falseIdentity">{{'selcet.falseIdentity' | translate}}</option>
+                <option value="spam">{{'select.spam' | translate}}</option>
+                <option value="noShowOrUnagreedChanges">{{'select.noShowOrUnagreedChanges' | translate}}</option>
+                <option value="dangerousBehavior">{{'select.dangerousBehavior' | translate}}</option>
+                <option value="other">{{'select.other' | translate}}</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <div class="flex-grow">
+            <mat-form-field class="w-full h-full">
+              <mat-label>{{'input.description' | translate}}</mat-label>
+              <textarea matInput formControlName="description" class="h-full resize-none max-h-[240px] min-h-[240px]" type="text"></textarea>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+      <div class="flex justify-end p-2">
+        <button mat-button routerLink="/ride/my">{{'button.cancel' | translate}}</button>
+        <button mat-flat-button (click)="submitForm()">{{'button.report' | translate}}</button>
+      </div>
+    </mat-card>
+  </div>

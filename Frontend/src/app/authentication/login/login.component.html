@@ -1,0 +1,59 @@
+<div class="flex items-center justify-center h-screen" *ngIf="!isAccountActive">
+    <mat-card appearance="outlined" class="w-2/6">
+        <mat-card-content>
+            <div class="p-6 w-full">
+                <h1 class="flex justify-center text-3xl font-bold">{{'label.login' | translate}}</h1>
+                <mat-divider></mat-divider>
+                <br>
+                <form [formGroup]="loginForm" class="w-full">
+                    <mat-form-field class="w-full">
+                        <mat-label>{{'input.email' | translate}}</mat-label>
+                        <input matInput type="email" formControlName="email">
+                        <mat-error
+                            *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+                            {{ 'error.notNull' | translate }}
+                        </mat-error>
+                        <mat-error
+                            *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+                            {{ 'error.email' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="w-full">
+                        <mat-label for="password">{{'input.password' | translate}}</mat-label>
+                        <input matInput [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password">
+                        <mat-error
+                            *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">{{"error.notNull"
+                            | translate}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-checkbox [checked]="isPasswordVisible" (change)="changePasswordVisible()">
+                        {{'label.passwordVisible' | translate}}
+                    </mat-checkbox>
+                    <a routerLink="/resetPassword" class="flex justify-start secundaryText mt-2 ml-2 items-center h-full secundaryTextLink"><mat-icon>help</mat-icon><span class="ml-2">{{'button.resetPassword' | translate}}</span></a>
+                    <br>
+                    <div class="flex justify-end">
+                        <a mat-button routerLink="/register">{{'button.register' | translate}}</a>
+                        <button mat-flat-button (click)="submitForm()">{{'button.login' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="flex items-center justify-center h-screen" *ngIf="isAccountActive">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <div class="p-6">
+                <app-code-input mainTitle="label.accountActive" inputTitle="label.accountActiveInfo"
+                    [isNotNullError]="isCodeNull" (refresOutputEvent)="refreshMail()"
+                    (codeOutputEvent)="setCode($event)"></app-code-input>
+                <div class="flex justify-end">
+                    <a mat-button (click)="toLoginPage()">{{'button.cancel' | translate}}</a>
+                    <button mat-flat-button (click)="accountActive()">{{'button.accountActive' | translate}}</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

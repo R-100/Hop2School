@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>
+  <div class="flex items-center justify-center w-full p-2">
+    <div class="flex">
+      <app-status-card class="w-full" [activeStatus]="data.ride.status" ></app-status-card>
+    </div>
+    <h1 class="text-2xl font-extrabold text-primary mx-4 flex-grow text-center">{{(data.isInfoCard ? 'label.driverInfo' :
+      'label.driveSale') | translate}}</h1>
+    <button mat-icon-button class="ml-auto" (click)="goToReport()">
+      <mat-icon>report_problem</mat-icon>
+    </button>
+  </div>
+</h2>
+<mat-dialog-content class="mat-typography text-base leading-relaxed">
+  <mat-divider></mat-divider>
+  <div class="ml-6 mr-6">
+    <h3 class="text-xl font-bold pb-1 mt-6 mb-3 text-primary">{{'label.adressInfo' | translate}}</h3>
+    <div class="mb-4 grid grid-cols-2 gap-4">
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.city || '-'}}, {{data.ride.postalCode || '-'}}</span>
+        <span class="text-sm secundaryText">{{'label.postalCodeAndCity' | translate}}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.street || '-'}}, {{data.ride.houseNumber || '-'}}</span>
+        <span class="text-sm secundaryText">{{"label.streetAndHouseNumber" | translate}}</span>
+      </div>
+    </div>
+    <h3 class="text-xl font-bold pb-1 mt-6 mb-3 text-primary">{{'label.timeInfo' | translate}}</h3>
+    <div class="mb-4 grid grid-cols-2 gap-4">
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.startDate | date: 'd.M.y'}}</span>
+        <span class="text-sm secundaryText">{{'label.startDate' | translate}}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{ 'label.rideInfoTime' | translate: {
+          startTime: (data.ride.startTime | date:'HH:mm'),
+          endTime: (data.ride.endTime | date:'HH:mm')} }}</span>
+        <span class="text-sm secundaryText">{{'label.startEndTime' | translate}}</span>
+      </div>
+    </div>
+    <h3 class="text-xl font-bold pb-1 mt-6 mb-3 text-primary">{{'label.otherInfo' | translate}}</h3>
+    <div class="mb-4 grid grid-cols-2 gap-4">
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.price}}€</span>
+        <span class="text-sm secundaryText">{{'label.cost' | translate}}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.belgeSeats}}/{{data.ride.seats}}</span>
+        <span class="text-sm secundaryText">{{'label.onlySeats' | translate}}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.createDate | date: 'd.M.y'}}</span>
+        <span class="text-sm secundaryText">{{'label.createRideDate' | translate}}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-base font-semibold mainText">{{data.ride.driverName}}</span>
+        <span class="text-sm secundaryText">{{'label.driverName' | translate}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="mr-4 ml-4">
+    <button *ngIf="!isAuthUserBookRide && !data.isInfoCard" (click)="rideBook()" class="flex justify-center w-full" mat-flat-button>
+      {{"button.driverSaleSave" | translate}}
+    </button>
+    <button *ngIf="isAuthUserBookRide && !data.isInfoCard" (click)="rideCancel()" class="flex justify-center w-full"
+      mat-flat-button>
+      {{"button.driverSaleCancel" | translate}}
+    </button>
+    <button *ngIf="!data.isInfoCard" class="flex justify-center w-full" mat-button (click)="goToChat()">
+      {{"button.chat" | translate}}
+    </button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="bg-primary hover:bg-primary-dark">{{ 'button.closed' | translate}}</button>
+</mat-dialog-actions>

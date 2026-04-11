@@ -1,0 +1,42 @@
+<div class="p-1">
+    <div class="flex justify-between">
+        <div class="flex justify-start">
+            <h1 class="text-2xl font-bold mb-2">{{ mainTitle | translate }}</h1>
+            <select [(ngModel)]="currentYear" (ngModelChange)="onYearChange($event)" class="ml-2 mb-1 text-xl">
+                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+        </div>
+        <div class="flex justify-end">
+            <div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-4 h-4 columnChartMainPart rounded"></div>
+                    <span class="text-sm">{{ mainPart | translate }}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-4 h-4 columnChartResidualPart rounded"></div>
+                    <span class="text-sm">{{ secondaryPart | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <div class="relative h-64 flex items-end border-b-2 columnChartBorder pl-8 mt-2 ml-6 min-w-full">
+            <div class="absolute left-0 bottom-0 flex flex-col justify-between h-64 text-xs columnChartLabel -ml-6">
+                <div *ngFor="let label of yAxisLabels" class="h-10">{{ label }}</div>
+            </div>
+            <div *ngFor="let item of data" class="flex flex-col items-center pl-2 mx-1">
+                <div class="flex items-end space-x-1 h-60">
+                    <div class="columnChartMainPart w-3 rounded-t"
+                        [style.height.%]="(item.mainColumn / maxYAxisLabels) * 100"
+                        [matTooltip]="item.mainColumn + ' ' + ( 'tooltip.mainColumn' | translate )">
+                    </div>
+                    <div class="columnChartResidualPart w-3 rounded-t"
+                        [style.height.%]="(item.secondaryColumn / maxYAxisLabels) * 100"
+                        [matTooltip]="item.secondaryColumn + ' ' + ( 'tooltip.secondaryColumn' | translate )">
+                    </div>
+                </div>
+                <div class="text-xs mt-2">{{ item.monat | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>

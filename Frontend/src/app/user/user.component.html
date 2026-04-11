@@ -1,0 +1,60 @@
+<h2 mat-dialog-title><mat-icon>account_circle</mat-icon><span class="ml-2 text-3xl font-extrabold text-primary">{{
+        'label.account' | translate }}</span></h2>
+<mat-dialog-content class="mat-typography text-base leading-relaxed" *ngIf="!isPasswordUpdate">
+    <div class="p-4">
+        <app-edit-input (sendBackValueEvent)="updateUsername($event)" [label]="'input.username'"
+            [value]="user?.username || ''" class="w-5/6"></app-edit-input>
+        <app-edit-input (sendBackValueEvent)="updateLastname($event)" [label]="'input.lastname'"
+            [value]="user?.lastname || ''" class="w-5/6"></app-edit-input>
+        <app-edit-input [isEditInput]='false' [label]="'input.email'" [value]="user?.email || ''"
+            class="w-5/6"></app-edit-input>
+        <app-edit-input [isPhoneNumber]="true" (sendBackValueEvent)="updatePhoneNumber($event)"
+            [label]="'input.phoneNumber'" [value]="user?.phoneNumber || ''" class="w-5/6"></app-edit-input>
+        <app-edit-input [isClazz]="true" (sendBackValueEvent)="updateClazz($event)" [label]="'input.clazz'"
+            [value]="user?.clazz || ''" class="w-5/6"></app-edit-input>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="ml-4 mr-4 mt-4">
+        <button mat-flat-button class="w-full" (click)="changeToUpdatePassword()">{{'button.passwordEdit' | translate}}</button>
+        <button mat-raised-button mat-dialog-close class="w-full mt-4" (click)="logout()">{{'button.exit' | translate}}</button>
+    </div>
+</mat-dialog-content>
+<mat-dialog-content *ngIf="isPasswordUpdate">
+    <app-code-input mainTitle="label.passwordRestCode" inputTitle="label.accountActiveInfo"
+        [isNotNullError]="isCodeNull" (refresOutputEvent)="sendCode()"
+        (codeOutputEvent)="setCode($event)"></app-code-input>
+    <form [formGroup]="passwordForm">
+        <mat-form-field class="w-full mt-1">
+            <mat-label>{{'input.password' | translate}}</mat-label>
+            <input matInput [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password">
+            <mat-error
+                *ngIf="passwordForm.get('password')?.hasError('required') && passwordForm.get('password')?.touched">{{"error.notNull"
+                | translate}}</mat-error>
+            <mat-error *ngIf="passwordForm.get('password')?.hasError('passwordInvalid')">
+                {{ 'error.passwordInvalid' | translate }}
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="w-full">
+            <mat-label>{{'input.confirmPassword' | translate}}</mat-label>
+            <input matInput [type]="isPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword">
+            <mat-error
+                *ngIf="passwordForm.get('confirmPassword')?.hasError('required') && passwordForm.get('confirmPassword')?.touched">{{"error.notNull"
+                | translate}}</mat-error>
+            <mat-error *ngIf="passwordForm.get('confirmPassword')?.hasError('confirmPassword')">
+                {{ 'error.confirmPassword' | translate }}
+            </mat-error>
+        </mat-form-field>
+        <p class="flex justify-center text-sm secundaryText">({{'label.passwordRequirement' | translate}})</p>   
+        <mat-checkbox class="w-full" [checked]="isPasswordVisible" (change)="changePasswordVisible()">
+            {{'label.passwordVisible' | translate}}
+        </mat-checkbox>
+        <div class="flex justify-end">
+            <button mat-button (click)="isPasswordUpdate = false">{{'button.cancel' | translate}}</button>
+            <button mat-flat-button color="primary" (click)="updatePassword()">{{'button.save' | translate}}</button>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="!isPasswordUpdate">
+    <button mat-button mat-dialog-close>{{ 'button.closed' | translate}}</button>
+</mat-dialog-actions>

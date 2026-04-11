@@ -1,0 +1,22 @@
+<h2 mat-dialog-title><mat-icon>settings</mat-icon><span class="ml-2 text-3xl font-extrabold text-primary">{{ 'label.settings' | translate }}</span></h2>
+<mat-dialog-content class="mat-typography text-base leading-relaxed">
+    <div class="m-4">
+        <div class="flex justify-center w-full mb-4">
+            <p><mat-slide-toggle labelPosition="before" [(ngModel)]="currentTheme"
+                    (change)="toggleTheme()">{{'label.mode'| translate }}</mat-slide-toggle></p>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="flex justify-center w-full mt-4">
+            <mat-form-field>
+                <mat-label>{{ 'label.language.title' | translate }}</mat-label>
+                <mat-select [(value)]="currentLanguage" (selectionChange)="changeLanguage($event.value)">
+                    <mat-option value="de">{{'label.language.de' | translate}}</mat-option>
+                    <mat-option value="en">{{'label.language.en' | translate}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>{{ 'button.closed' | translate}}</button>
+</mat-dialog-actions>

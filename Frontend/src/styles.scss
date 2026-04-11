@@ -1,0 +1,317 @@
+@use '@angular/material' as mat;
+@use "tailwindcss" as *;
+@use 'sass:map';
+@use './assets/custom-theme.scss' as *;
+
+html {
+    color-scheme: light;
+    @include mat.theme((color: (primary: $primary-palette, tertiary: $tertiary-palette)));
+    @include define-color-variables(light);
+
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        background-color: palette("neutral", 98);
+        color: palette("neutral", 10);
+    }
+
+    .customMatSidenav {
+        background-color: palette("neutral", 96);
+        color: palette("neutral", 10);
+    }
+
+    .customMatToolbar {
+        background-color: palette("primary", 30);
+        color: palette("neutral", 96);
+    }
+
+    .customMatToolbar h1 {
+        color: palette("neutral", 96);
+    }
+
+    .customMatToolbar button {
+        color: palette("neutral", 96);
+    }
+
+    .customMatToolbar button:hover {
+        color: palette("neutral", 98);
+        background-color: palette("primary", 60);
+        border-radius: 1rem;
+    }
+
+    h1 {
+        color: palette("primary", 30);
+    }
+
+    .mainText {
+        color: palette("neutral", 10);
+    }
+
+    .secundaryText {
+        color: palette("neutral", 50);
+    }
+
+    .secundaryTextLink:hover {
+        color: palette("neutral", 40);
+    }
+
+    .mainLine {
+        background-color: palette("neutral", 10);
+    }
+
+    .donutChartMainPart {
+        background-color: palette("primary", 30);
+        stroke: palette("primary", 30);
+    }
+
+    .donutChartResidualPart {
+        background-color: palette("neutral", 80);
+        stroke: palette("neutral", 80);
+    }
+
+    .columnChartMainPart {
+        background-color: palette("primary", 30);
+    }
+
+    .columnChartResidualPart {
+        background-color: palette("tertiary", 40);
+    }
+
+    .columnChartBorder {
+        border-color: palette("neutral", 70);
+    }
+
+    .columnChartLabel {
+        color: palette("neutral", 70);
+    }
+
+    .findCard {
+        background-color: palette("neutral", 98);
+        color: palette("neutral", 10);
+    }
+
+    .status-cancel {
+        background-color: rgba(palette("error", 40), 0.1);
+        color: palette("error", 40);
+        border-color: palette("error", 40);
+    }
+
+    .status-pending {
+        background-color: rgba(palette("tertiary", 40), 0.1);
+        color: palette("tertiary", 40);
+        border-color: palette("tertiary", 40);
+    }
+
+    .status-closed {
+        background-color: rgba(palette("neutral", 70), 0.1);
+        color: palette("neutral", 10);
+        border-color: palette("neutral", 70);
+    }
+
+    .status-active {
+        background-color: rgba(palette("tertiary", 40), 0.1);
+        color: palette("tertiary", 40);
+        border-color: palette("tertiary", 40);
+    }
+
+    .messageBg {
+        background-color: palette("neutral", 90);
+    }
+
+    .messageContent {
+        color: palette("neutral", 10);
+    }
+
+    .messageTimestamp {
+        color: palette("neutral", 50);
+    }
+
+    .messageBgBorderLeft {
+        border-left-color: palette("neutral", 10);
+    }
+
+    .messageBgBorderRight {
+        border-right-color: palette("neutral", 10);
+    }
+
+    .borderCodeInput {
+        border-color: palette("neutral", 50);
+    }
+
+    .borderCodeInput:focus {
+        border-color: palette("tertiary", 70);
+        outline: none;
+    }
+
+    .badgeButton {
+        background-color: palette("primary", 40);
+        color: palette("neutral", 80);
+    }
+
+    .badgeButton:hover {
+        background-color: palette("primary", 30);
+        color: palette("neutral", 98);
+    }
+
+    .messageUsername {
+        color: palette("tertiary", 40);
+    }
+}
+
+html.dark-mode {
+    color-scheme: dark;
+    @include mat.theme((color: (primary: $primary-palette, tertiary: $tertiary-palette)));
+    @include define-color-variables(dark);
+
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        background-color: palette("neutral", 6);
+        color: palette("neutral", 90);
+    }
+
+    .customMatSidenav {
+        background-color: palette("neutral", 12);
+        color: palette("neutral", 90);
+    }
+
+    .customMatToolbar {
+        background-color: palette("primary", 80);
+        color: palette("neutral", 12);
+    }
+
+    .customMatToolbar h1 {
+        color: palette("neutral", 12);
+    }
+
+    .customMatToolbar button {
+        color: palette("neutral", 12);
+    }
+
+    .customMatToolbar button:hover {
+        color: palette("neutral", 20);
+        background-color: palette("primary", 70);
+        border-radius: 1rem;
+    }
+
+    h1 {
+        color: palette("primary", 80);
+    }
+
+    .mainText {
+        color: palette("neutral", 90);
+    }
+
+    .secundaryText {
+        color: palette("neutral", 80);
+    }
+
+    .secundaryTextLink:hover {
+        color: palette("neutral", 90);
+    }
+
+    .mainLine {
+        background-color: palette("neutral", 80);
+    }
+
+    .donutChartMainPart {
+        background-color: palette("primary", 80);
+        stroke: palette("primary", 80);
+    }
+
+    .donutChartResidualPart {
+        background-color: palette("neutral", 80);
+        stroke: palette("neutral", 80);
+    }
+
+
+    .columnChartMainPart {
+        background-color: palette("primary", 80);
+    }
+
+    .columnChartResidualPart {
+        background-color: palette("tertiary", 70);
+    }
+
+    .columnChartBorder {
+        border-color: palette("neutral", 40);
+    }
+
+    .columnChartLabel {
+        color: palette("neutral", 40);
+    }
+
+    .findCard {
+        background-color: palette("neutral", 6);
+        color: palette("neutral", 90);
+    }
+
+    .status-cancel {
+        background-color: rgba(palette("error", 80), 0.1);
+        color: palette("error", 80);
+        border-color: palette("error", 80);
+    }
+
+    .status-pending {
+        background-color: rgba(palette("tertiary", 70), 0.1);
+        color: palette("tertiary", 70);
+        border-color: palette("tertiary", 70);
+    }
+
+    .status-closed {
+        background-color: rgba(palette("neutral", 40), 0.1);
+        color: palette("neutral", 90);
+        border-color: palette("neutral", 40);
+    }
+
+    .status-active {
+        background-color: rgba(palette("tertiary", 70), 0.1);
+        color: palette("tertiary", 70);
+        border-color: palette("tertiary", 70);
+    }
+
+    .messageBg {
+        background-color: palette("neutral", 20);
+    }
+
+    .messageContent {
+        color: palette("neutral", 90);
+    }
+
+    .messageTimestamp {
+        color: palette("neutral", 80);
+    }
+
+    .messageBgBorderLeft {
+        border-left-color: palette("neutral", 90);
+    }
+
+    .messageBgBorderRight {
+        border-right-color: palette("neutral", 90);
+    }
+
+    .borderCodeInput {
+        border-color: palette("neutral", 80);
+    }
+
+    .borderCodeInput:focus {
+        border-color: palette("tertiary", 70);
+        outline: none;
+    }
+
+    .badgeButton {
+        background-color: palette("primary", 80);
+        color: palette("neutral", 6);
+    }
+
+    .badgeButton:hover {
+        background-color: palette("primary", 70);
+        color: palette("neutral", 0);
+    }
+
+    .messageUsername {
+        color: palette("tertiary", 70);
+    }
+}

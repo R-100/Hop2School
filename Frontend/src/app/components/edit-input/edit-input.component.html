@@ -1,0 +1,10 @@
+<div class="form-field-wrapper w-full relative">
+    <mat-form-field class="w-full">
+        <mat-label>{{ label | translate}}</mat-label>
+        <input matInput [formControl]="valueControl" type="text"/>
+    </mat-form-field>
+
+    <button mat-icon-button class="badgeButton" (click)="changeEditSave()" *ngIf="isEditInput" matTooltip="{{ (valueControl.disabled ? 'tooltip.edit' : 'tooltip.save') | translate }}">
+        <mat-icon>{{ valueControl.disabled ? 'edit' : 'check' }}</mat-icon>
+    </button>
+</div>
