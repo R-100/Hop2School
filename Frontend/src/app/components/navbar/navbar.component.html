@@ -16,6 +16,12 @@
     [opened]="isMobile ? 'false' : 'true'" class="sidenav-content customMatSidenav">
     <div class="flex flex-col h-full justify-between">
       <mat-nav-list>
+         <a *ngIf="disableAdmin" mat-list-item routerLink="/admin/area" matTooltip="{{'navbar.admin' | translate}}">
+          <span class="entry">
+            <mat-icon class="shrink-0">admin_panel_settings</mat-icon>
+            <span *ngIf="!isCollapsed">{{'navbar.admin' | translate}}</span>
+          </span>
+        </a>
         <a mat-list-item routerLink="/" matTooltip="{{'navbar.dashbord' | translate}}">
           <span class="entry">
             <mat-icon class="shrink-0">dashboard</mat-icon>

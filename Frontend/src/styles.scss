@@ -157,6 +157,15 @@ html {
     .messageUsername {
         color: palette("tertiary", 40);
     }
+
+    .cardHeader {
+        background-color: palette("neutral", 90);
+    }
+
+    .reports {
+        background-color: palette("primary", 40);
+    }
+
 }
 
 html.dark-mode {
@@ -313,5 +322,13 @@ html.dark-mode {
 
     .messageUsername {
         color: palette("tertiary", 70);
+    }
+
+    .cardHeader {
+        background-color: palette("neutral", 20);
+    }
+
+    .reports {
+        background-color: palette("primary", 80);
     }
 }

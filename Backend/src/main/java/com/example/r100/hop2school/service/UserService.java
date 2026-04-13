@@ -8,17 +8,17 @@ import java.util.UUID;
 
 public interface UserService {
 
-    UserEntity saveUser(RegistrationDto registrationDto);
+    UserEntity saveUser(Registration registration);
 
     Optional<UserEntity> findByMail(String mail);
 
-    void activeAccount(AccountActiveDto accountActiveDto);
+    void activeAccount(AccountActive accountActive);
 
     void refreshMail(String mail);
 
     UserEntity getByUserId(UUID id);
 
-    String login(LoginDto loginDto);
+    String login(Login login);
 
     boolean authenticate(String email, String password);
 
@@ -27,8 +27,6 @@ public interface UserService {
     UserEntity getAuthenticationUserEntity();
 
     void addReportCounter(UserEntity entity);
-
-    void reportDisable(UserEntity entity, String message);
 
     void updateLanguage(String command);
 

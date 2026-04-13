@@ -12,6 +12,10 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
+            <column name="role" type="INT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="username" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -37,7 +41,7 @@
             <column name="clazz" type="VARCHAR(100)"/>
 
             <column name="is_white_mode" type="BOOLEAN" defaultValueBoolean="true"/>
-            <column name="language" type="VARCHAR(10)" defaultValue="de"/>
+            <column name="language" type="VARCHAR(10)" defaultValue="en"/>
         </createTable>
     </changeSet>
 
@@ -166,5 +170,4 @@
                 referencedColumnNames="id"
                 constraintName="fk_reports_reported_user"/>
     </changeSet>
-
 </databaseChangeLog>

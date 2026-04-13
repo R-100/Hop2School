@@ -1,9 +1,12 @@
 package com.example.r100.hop2school.dto;
 
+import com.example.r100.hop2school.enums.Role;
+
 import java.util.UUID;
 
 public class User {
     private UUID id;
+    private Role role;
     private String username;
     private String lastname;
     private String password;
@@ -17,6 +20,14 @@ public class User {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getUsername() {

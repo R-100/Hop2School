@@ -1,6 +1,6 @@
 package com.example.r100.hop2school.dto;
 
-public class AccountActiveDto {
+public class AccountActive {
     private String email;
     private String password;
     private String code;

@@ -22,16 +22,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> registerUser(@RequestBody RegistrationDto registrationDto) {
-        if (userService.findByMail(registrationDto.getEmail()).isPresent()) {
+    public ResponseEntity<UserEntity> registerUser(@RequestBody Registration registration) {
+        if (userService.findByMail(registration.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(userService.saveUser(registrationDto));
+        return ResponseEntity.ok(userService.saveUser(registration));
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginDto loginDto) {
-        return userService.login(loginDto);
+    public String login(@RequestBody Login login) {
+        return userService.login(login);
     }
 
     @GetMapping("/isActiveAccount")
@@ -40,12 +40,12 @@ public class AuthController {
     }
 
     @PostMapping("/isActiveAccount")
-    public ResponseEntity<?> isActiveAccount(@RequestBody AccountActiveDto accountActiveDto) {
-        userService.activeAccount(accountActiveDto);
-        boolean authenticated = userService.authenticate(accountActiveDto.getEmail(),
-                accountActiveDto.getPassword());
+    public ResponseEntity<?> isActiveAccount(@RequestBody AccountActive accountActive) {
+        userService.activeAccount(accountActive);
+        boolean authenticated = userService.authenticate(accountActive.getEmail(),
+                accountActive.getPassword());
         if (authenticated) {
-            return userService.findByMail(accountActiveDto.getEmail()).map(ResponseEntity::ok)
+            return userService.findByMail(accountActive.getEmail()).map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.badRequest().build());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect login");

@@ -46,6 +46,17 @@
             "de": "Deutsch",
             "en": "Englisch"
         },
+        "addMessage": "Zusatz Nachricht",
+        "reportHistory": "Meldeungsverlauf",
+        "reporter": "Gemeldet von",
+        "yes": "Ja",
+        "no": "Nein",
+        "adminArea": "Admin Bereich",
+        "username": "Benutzer Name",
+        "lastname": "Nachname",
+        "email": "E-Mail Adresse",
+        "reportStatus": "Gesperrt",
+        "reportCounter": "Gemeldet",
         "ridesOption": "Fahrt auswählen",
         "driverName": "Fahrer Name",
         "createRideDate": "Fahrt erstellt am",
@@ -56,7 +67,7 @@
         "searchFunction": "Suchfunktion",
         "onlyFreeRides": "Nur konstenlose Fahrten",
         "activeSearchRides": "Suchradius aktivieren",
-        "resetPassword": "Passwort zurücksetzten", 
+        "resetPassword": "Passwort zurücksetzten",
         "projectName": "Hop2School",
         "createRide": "Fahrangebot erstellen",
         "updateRide": "Fahrangebot Bearbeitung",
@@ -137,7 +148,8 @@
         "chats": "Chats",
         "helpInfo": "Hilfsdokumentation",
         "legalPrivacy": "Datenschutz & Impressum",
-        "settings": "Einstellungen"
+        "settings": "Einstellungen",
+        "admin": "Admin Bereich"
     },
     "error": {
         "numbers": "Es dürfen nur Zahlen eingeben werden.",
@@ -243,7 +255,8 @@
             "refreshMail": "Mail wurde erneut gesendet",
             "register": "Registrierung war erfolgreich",
             "report": "Sie haben erfolgreich den Benutzer gemeldet",
-            "year": "Sie haben erfolgreich das Jahr gewechselt"
+            "year": "Sie haben erfolgreich das Jahr gewechselt",
+            "disableReport": "Sie haben erfolgreich den Benutzer entsperrt"
         },
         "warning": {
             "rideFind": "Es wurden keine Fahrten gefunden."
@@ -279,6 +292,7 @@
         "add": "Element anlegen",
         "search": "Element Standort anzeigen",
         "edit": "Element bearbeiten",
-        "save": "Element speichern"
+        "save": "Element speichern",
+        "report": "Meldungen Ansehen"
     }
 }

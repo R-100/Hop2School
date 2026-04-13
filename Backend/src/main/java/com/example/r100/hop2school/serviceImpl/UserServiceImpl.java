@@ -3,6 +3,7 @@ package com.example.r100.hop2school.serviceImpl;
 import com.example.r100.hop2school.config.JwtTokenUtil;
 import com.example.r100.hop2school.dto.*;
 import com.example.r100.hop2school.entity.UserEntity;
+import com.example.r100.hop2school.enums.Role;
 import com.example.r100.hop2school.repository.UserRepository;
 import com.example.r100.hop2school.service.EmailSenderService;
 import com.example.r100.hop2school.service.UserService;
@@ -42,9 +43,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity saveUser(RegistrationDto registiterungDto) {
+    public UserEntity saveUser(Registration registiterungDto) {
         int activeCode = generatorRandomActiveCode();
         UserEntity user = new UserEntity();
+        user.setRole(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(registiterungDto.getPassword()));
         user.setPassword(passwordEncoder.encode(registiterungDto.getPassword()));
         user.setUsername(registiterungDto.getUsername());
@@ -73,9 +75,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void activeAccount(AccountActiveDto accountActiveDto) {
-        UserEntity userEntity = findByMail(accountActiveDto.getEmail()).get();
-        if (userEntity.getActiveCode() == Integer.parseInt(accountActiveDto.getCode())) {
+    public void activeAccount(AccountActive accountActive) {
+        UserEntity userEntity = findByMail(accountActive.getEmail()).get();
+        if (userEntity.getActiveCode() == Integer.parseInt(accountActive.getCode())) {
             userEntity.setActive(true);
             userEntity.setActiveCode(0);
             userRepository.save(userEntity);
@@ -107,15 +109,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(LoginDto loginDto) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
+    public String login(Login login) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword()));
         return jwtTokenUtil.generateToken(authenticate.getName(), findByMail(authenticate.getName()).get().getId().toString());
     }
 
     @Override
     public boolean authenticate(String email, String password) {
-        UserEntity user = userRepository.findByEmail(email).get();
-        return passwordEncoder.matches(password, user.getPassword());
+        return passwordEncoder.matches(password, userRepository.findByEmail(email).get().getPassword());
     }
 
     @Override
@@ -126,6 +127,7 @@ public class UserServiceImpl implements UserService {
     private User map(UserEntity entity) {
         User user = new User();
         user.setId(entity.getId());
+        user.setRole(entity.getRole());
         user.setUsername(entity.getUsername());
         user.setLastname(entity.getLastname());
         user.setEmail(entity.getEmail());
@@ -160,19 +162,6 @@ public class UserServiceImpl implements UserService {
             senderService.sendEmail(entity.getEmail(), entity.getUsername(), subject, body);
         }
         userRepository.save(entity);
-    }
-
-    @Override
-    public void reportDisable(UserEntity entity, String message) {
-        entity.setReportStatus(false);
-        entity.setReportCount(0);
-        userRepository.save(entity);
-        String subject = "Confirmation of your registration with " + appName;
-        String body = "We are pleased to inform you that your account has been successfully unlocked.<br>" +
-                "However, there is an important message from the " + appName + " support team that you should please take note of:<br><br>" +
-                "<strong>Important message:</strong><br>" + message + "<br><br>" +
-                "Please take a moment to read the message and take further action if necessary.";
-        senderService.sendEmail(entity.getEmail(), entity.getUsername(), subject, body);
     }
 
     @Override

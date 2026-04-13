@@ -9,14 +9,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LegalPrivacyComponent } from '../../legal-privacy/legal-privacy.component';
 import { AuthService } from '../../service/backend/auth.service';
-import { UserService } from '../../service/backend/user.service';
+import { RoleGuard } from '../../service/frontend/role.guard';
 import { SettingsComponent } from '../../settings/settings.component';
 import { UserComponent } from '../../user/user.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-navbar',
@@ -28,31 +29,33 @@ export class NavbarComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   isMobile: boolean = true;
-  isCollapsed:boolean = true;
+  isCollapsed: boolean = true;
+  disableAdmin: boolean = false;
 
   dialog = inject(MatDialog);
 
   constructor(
     private observer: BreakpointObserver,
     private authService: AuthService,
-    private userService: UserService
-  ) {}
+    private roleGuard: RoleGuard,
+  ) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
-      if(screenSize.matches){
+      if (screenSize.matches) {
         this.isMobile = true;
       } else {
         this.isMobile = false;
       }
     });
+    this.roleGuard.canActivate().then(data => this.disableAdmin = data);
   }
 
   toggleMenu() {
-    if(this.isMobile){
+    if (this.isMobile) {
       this.sidenav.toggle();
-      this.isCollapsed = false; 
-      this.sidenav.open(); 
+      this.isCollapsed = false;
+      this.sidenav.open();
       this.isCollapsed = !this.isCollapsed;
     } else {
       this.sidenav.open();

@@ -2,6 +2,7 @@ package com.example.r100.hop2school.serviceImpl;
 
 import com.example.r100.hop2school.entity.UserEntity;
 import com.example.r100.hop2school.repository.UserRepository;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,12 +21,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@NonNull String identifier) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByEmail(identifier).orElseThrow(() -> new UsernameNotFoundException("The user with the email address could not be found: " + identifier));
         return new org.springframework.security.core.userdetails.User(
                 userEntity.getEmail(),
                 userEntity.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
+                List.of(new SimpleGrantedAuthority(userEntity.getRole().name()))
         );
     }
 

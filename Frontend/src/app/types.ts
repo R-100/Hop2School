@@ -1,5 +1,6 @@
 export interface User {
     id: UUID,
+    role: Role,
     username: string,
     lastname: string,
     email: string,
@@ -96,6 +97,34 @@ export interface Month {
     secondaryColumn: number,
 }
 
+export interface ColorSetStatus {
+    background: string,
+    text: string,
+    border: string,
+}
+
+export interface UserForAdmin {
+    id: UUID,
+    username: string,
+    lastname: string,
+    email: string,
+    reportStatus: boolean,
+    reportCount: number,
+}
+
+export interface Report {
+    id: UUID,
+    subject: string,
+    description: string,
+    timestamp: Date,
+    reportedUserId: UUID,
+    reportedUserName: string,
+    reporterUserId: UUID,
+    reporterUserName: string,
+}
+
+export type UUID = string;
+
 export enum Status {
     PENDING = 'PENDING',
     CLOSED = 'CLOSED',
@@ -103,10 +132,7 @@ export enum Status {
     ACTIVE = 'ACTIVE',
 }
 
-export interface ColorSetStatus {
-    background: string,
-    text: string,
-    border: string,
+export enum Role {
+    ROLE_USER = 'ROLE_USER',
+    ROLE_ADMIN = 'ROLE_ADMIN',
 }
-
-export type UUID = string;

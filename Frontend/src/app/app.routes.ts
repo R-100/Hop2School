@@ -11,6 +11,9 @@ import { MyRidesComponent } from './rides/my-rides/my-rides.component';
 import { RideComponent } from './rides/ride/ride.component';
 import { AuthGuard } from './service/frontend/auth.guard';
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { RoleGuard } from './service/frontend/role.guard';
+import { AdminAreaComponent } from './admin/admin-area/admin-area.component';
+import { ReportDisableComponent } from './admin/report-disable/report-disable.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -23,11 +26,21 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashbordHomeComponent },
       {
+        path: 'admin/area',
+        component: AdminAreaComponent,
+        canActivate: [RoleGuard]
+      },
+      {
+        path: 'admin/reports/:id',
+        component: ReportDisableComponent,
+        canActivate: [RoleGuard]
+      },
+      {
         path: 'ride', children: [
           { path: 'my', component: MyRidesComponent },
           { path: 'find', component: FindRidesComponent },
           { path: 'add', component: RideComponent },
-          { path: ':id', component: RideComponent}
+          { path: ':id', component: RideComponent }
         ]
       },
       {

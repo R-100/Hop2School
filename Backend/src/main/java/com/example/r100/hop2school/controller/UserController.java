@@ -69,5 +69,4 @@ public class UserController {
     public String getGeoCodingApiKey() {
         return userService.getGeoCodingApiKey();
     }
-
 }

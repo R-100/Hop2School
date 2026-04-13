@@ -46,6 +46,17 @@
             "de": "German",
             "en": "English"
         },
+        "addMessage": "Additional message",
+        "reportHistory": "Report History",
+        "reporter": "Reported by",
+        "yes": "Yes",
+        "no": "No",
+        "adminArea": "Admin Area",
+        "username": "Username",
+        "lastname": "Last Name",
+        "email": "E-Mail address",
+        "reportStatus": "Blocked",
+        "reportCounter": "Reported",
         "ridesOption": "Select Ride",
         "driverName": "Driver Name",
         "createRideDate": "Ride created on",
@@ -137,7 +148,8 @@
         "chats": "Chats",
         "helpInfo": "Help Documentation",
         "legalPrivacy": "Privacy Policy & Legal Notice",
-        "settings": "Settings"
+        "settings": "Settings",
+        "admin": "Admin Area"
     },
     "error": {
         "numbers": "Only numbers are allowed.",
@@ -243,7 +255,8 @@
             "refreshMail": "Email resent successfully",
             "register": "Registration successful",
             "report": "User successfully reported",
-            "year": "Year changed successfully"
+            "year": "Year changed successfully",
+            "disableReport": "You have successfully unlocked the user"
         },
         "warning": {
             "rideFind": "No rides were found."
@@ -279,6 +292,7 @@
         "add": "Add Element",
         "search": "Show Element Location",
         "edit": "Edit Element",
-        "save": "Save Element"
+        "save": "Save Element",
+        "report": "View Notifications"
     }
 }
