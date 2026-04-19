@@ -35,8 +35,8 @@
               <div
                 class="absolute right-[-8px] top-[50%] w-0 h-0 border-l-8 border-b-8 border-t-8 border-transparent messageBgBorderLeft">
               </div>
-              <div class="text-sm messageContent">{{message.content}}</div>
-              <div class="absolute bottom-0 right-[8px] text-xs messageTimestamp">{{message.timestamp | date:'HH:mm'}}
+              <div class="text-sm messageContent" style="white-space: pre-line;">{{message.content}}</div>
+              <div class="absolute bottom-0 right-[10px] text-xs messageTimestamp">{{message.timestamp | date:'HH:mm'}}
                 ({{message.timestamp | date: 'd.M.y'}})</div>
             </div>
           </div>
@@ -49,8 +49,8 @@
               <div
                 class="absolute left-[-8px] top-[50%] w-0 h-0 border-r-8 border-b-8 border-t-8 border-transparent messageBgBorderRight">
               </div>
-              <div class="text-sm messageContent">{{message.content}}</div>
-              <div class="absolute bottom-0 right-[8px] text-xs messageTimestamp">{{message.timestamp | date: 'HH:mm'}}
+              <div class="text-sm messageContent" style="white-space: pre-line;">{{message.content}}</div>
+              <div class="absolute bottom-0 right-[10px] text-xs messageTimestamp">{{message.timestamp | date: 'HH:mm'}}
                 ({{message.timestamp | date: 'd.M.y'}})</div>
               <div class="absolute top-0 right-[0px] text-xs messageTimestamp">
                 <a mat-icon-button class="w-6 h-6 p-0" routerLink="/report/{{message.userId}}"><mat-icon
@@ -66,7 +66,7 @@
           <mat-form-field appearance="outline" class="w-full">
             <textarea matInput [placeholder]="('placeholder.send' | translate)"
               class="resize-none max-h-[48px] m-h-[48px] leading-5" id="content" [(ngModel)]="content"
-              name="content"></textarea>
+              name="content" style="white-space: pre-line;"></textarea>
           </mat-form-field>
         </div>
         <div class="self-end">

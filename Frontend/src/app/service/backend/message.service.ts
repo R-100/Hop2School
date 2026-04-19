@@ -14,10 +14,10 @@ export class MessageService {
   constructor(private http: HttpClient) { }
 
   getMessageByRideId(id: UUID): Promise<Message[]> {
-    return lastValueFrom(this.http.get<Message[]>(`${this.baseUrl}/${id}`)); 
+    return lastValueFrom(this.http.get<Message[]>(`${this.baseUrl}/${id}`));
   }
 
   sendMessage(command: CreateMessage) {
-    lastValueFrom(this.http.post(`${this.baseUrl}`, command)); 
+    return lastValueFrom(this.http.post(`${this.baseUrl}`, command));
   }
 }

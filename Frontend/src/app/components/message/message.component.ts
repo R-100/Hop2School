@@ -29,7 +29,7 @@ export class MessageComponent implements OnInit {
   ride?: Ride;
   content: string = '';
   isDriver: boolean = false;
-  private authUser!: User; 
+  private authUser!: User;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -43,33 +43,37 @@ export class MessageComponent implements OnInit {
       this.id = params.get('id');
       if (this.id !== null && this.id.length !== 0) {
         this.rideService.getRideById(this.id).then(data => {
-        this.ride = data
-        this.ride.startTime = new Date('1970-01-01T' + this.ride.startTime + 'Z');
-        this.ride.endTime = new Date('1970-01-01T' + this.ride.endTime + 'Z');
-      });
-        this.loadMessages(); 
+          this.ride = data
+          this.ride.startTime = new Date('1970-01-01T' + this.ride.startTime + 'Z');
+          this.ride.endTime = new Date('1970-01-01T' + this.ride.endTime + 'Z');
+        });
+        this.loadMessages();
       }
     });
     this.authService.getAuthUser().then(data => this.authUser = data);
-    this.isDriver = (this.ride?.driverId === this.authUser.id); 
+    this.isDriver = (this.ride?.driverId === this.authUser.id);
   }
 
   loadMessages() {
     if (this.id) {
+      this.messages = [];
       this.messageService.getMessageByRideId(this.id).then(data => this.messages = data);
     }
   }
 
-  messageSend() {
+  async messageSend() {
     if (this.content.trim() && this.ride?.id?.trim()) {
-      this.messageService.sendMessage({content: this.content, rideId: this.ride.id});
+      await this.messageService.sendMessage({
+        content: this.content,
+        rideId: this.ride.id
+      });
       this.content = "";
+      this.loadMessages();
     }
-    this.loadMessages();
-  }  
+  }
 
   isAuthUserId(id: UUID): boolean {
-    return id === this.authUser.id; 
+    return id === this.authUser.id;
   }
 
   isDriverUser(id: UUID): boolean {
