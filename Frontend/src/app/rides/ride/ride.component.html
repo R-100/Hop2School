@@ -12,7 +12,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-2">
                   <mat-form-field class="w-full">
                     <mat-label>{{'input.postalCode' | translate}}</mat-label>
-                    <input matInput formControlName="postalCode" />
+                    <input matInput formControlName="postalCode" maxlength="5"/>
                     <mat-error *ngIf="rideFrom.get('postalCode')?.hasError('required') && rideFrom.get('postalCode')?.touched">
                       {{"error.postalCode" | translate}}
                     </mat-error>
@@ -38,7 +38,7 @@
                   </mat-form-field>
                   <mat-form-field floatLabel="always" class="w-full">
                     <mat-label>{{'input.price' | translate}}</mat-label>
-                    <input matInput formControlName="price" type="text" placeholder="0,00" />
+                    <input matInput formControlName="price" type="text" placeholder="0,00"/>
                     <span matTextSuffix>€</span>
                   </mat-form-field>
                   <mat-form-field class="w-full">

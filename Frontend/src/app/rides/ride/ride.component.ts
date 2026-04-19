@@ -89,7 +89,7 @@ export class RideComponent implements OnInit {
         startDate: this.rideFrom.get('startDate')?.value,
         startTime: this.rideFrom.get('startTime')?.value,
         endTime: this.rideFrom.get('endTime')?.value,
-        price: (this.rideFrom.get('price')?.value).replace(',', '.'),
+        price: (this.rideFrom.get('price')?.value && this.rideFrom.get('price')?.value.toString().replace(',', '.')) || '0',
         seats: this.rideFrom.get('seats')?.value,
       };
       if (this.isUpdate && this.id !== null) {

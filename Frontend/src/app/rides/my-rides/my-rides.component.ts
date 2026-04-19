@@ -29,7 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class MyRidesComponent implements AfterViewInit, OnInit {
   data: Ride[] = [];
-  findAdress!: Adress; 
+  findAdress: Adress | null = null;
 
   displayedColumns: string[] = ['status', 'adress', 'time', 'seats', 'profit', 'action'];
   dataSource = new MatTableDataSource<Ride>();
@@ -41,7 +41,9 @@ export class MyRidesComponent implements AfterViewInit, OnInit {
   ) { }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   ngOnInit(): void {
@@ -49,22 +51,31 @@ export class MyRidesComponent implements AfterViewInit, OnInit {
   }
 
   private loadData(): void {
+    this.data = [];
     this.rideService.getAllMyRide().then(data => {
+      if (!data) return;
       this.data = data;
       this.dataSource.data = data;
     });
   }
 
-  rideCancel(id: UUID) {
-    this.rideService.cancel(id);
-    this.loadData();
-  }
+async rideCancel(id: UUID) {
+  await this.rideService.cancel(id);
+  this.loadData();
+  this.dataSource.data = [...this.data];
+}
 
   isButtonVisible(status: Status): boolean {
     return status === Status.ACTIVE || status === Status.PENDING;
   }
 
   markerRideOnMap(ride: Ride) {
-    this.findAdress = {city: ride.city, postalCode: ride.postalCode, street: ride.street, houseNumber: ride.houseNumber}; 
+    if (!ride) return;
+    this.findAdress = {
+      city: ride.city,
+      postalCode: ride.postalCode,
+      street: ride.street,
+      houseNumber: ride.houseNumber
+    };
   }
 }
