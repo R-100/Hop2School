@@ -1,0 +1,51 @@
+services:
+  hop2school-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: hop2school-postgres
+    volumes:
+      - hop2school-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+
+    environment:
+      - POSTGRES_DB=hop2school
+      - POSTGRES_USER=hop2school
+      - POSTGRES_PASSWORD=hop2school
+
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U hop2school" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./Backend
+    container_name: hop2school-backend
+
+    environment:
+      - DB_SERVER=hop2school-postgres
+      - POSTGRES_DB=hop2school
+      - POSTGRES_USER=hop2school
+      - POSTGRES_PASSWORD=hop2school
+      - APPLICATION_NAME=Hop2School
+      - MAIL_USERNAME=your_email@gmail.com
+      - MAIL_PASSWORD=your_app_password
+      - APPLICATION_MAIL=your_email@gmail.com
+      - JWT_SECRET="my-super-secret-key-that-is-at-least-64-characters-long-123456"
+      - GEOCODING_API_KEY="your_api_key"
+
+    ports:
+      - 8080:8080
+
+    depends_on:
+      hop2school-postgres:
+        condition: service_healthy
+
+  frontend:
+    build: ./Frontend
+    container_name: hop2school-frontend
+    ports:
+      - 4200:80
+
+volumes:
+  hop2school-data:

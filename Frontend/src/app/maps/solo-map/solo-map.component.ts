@@ -4,6 +4,7 @@ import { GeocodingService } from '../../service/frontend/geocoding.service';
 import { Adress, Cordinates } from '../../types';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserService } from '../../service/backend/user.service';
 
 @Component({
   selector: 'app-solo-map',
@@ -22,11 +23,23 @@ export class SoloMapComponent implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('mapContainer', { static: false }) private mapContainer!: ElementRef<HTMLElement>;
 
 
-  constructor(private geocodingService: GeocodingService) {
-    config.apiKey = '';
+  constructor(private geocodingService: GeocodingService, private userService: UserService) { }
+
+  private async initConfig() {
+    const key = await this.userService.getGeoCodingApiKey();
+    if (!key) {
+      console.error("API Key null!");
+      return;
+    }
+    config.apiKey = key;
+    requestAnimationFrame(() => this.initMap());
   }
 
   ngAfterViewInit() {
+    this.initConfig();
+  }
+
+  private initMap() {
     if (!this.mapContainer) {
       console.error("Map-Container nicht gefunden!");
       return;
@@ -43,16 +56,18 @@ export class SoloMapComponent implements AfterViewInit, OnDestroy, OnChanges {
     this.markerAdress = null;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-  if (changes['findAdress']?.currentValue) {
-    const current = changes['findAdress'].currentValue;
-    const previous = changes['findAdress'].previousValue;
 
-    if (JSON.stringify(current) !== JSON.stringify(previous)) {
-      this.updateMarker();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['findAdress']?.currentValue) {
+      const current = changes['findAdress'].currentValue;
+      const previous = changes['findAdress'].previousValue;
+
+      if (JSON.stringify(current) !== JSON.stringify(previous)) {
+        this.updateMarker();
+      }
     }
   }
-}
 
   private updateMarker() {
     if (!this.map) {

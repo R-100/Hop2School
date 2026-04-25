@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom, map, Observable } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { Cordinates } from '../../types';
-import { Coordinates } from '@maptiler/sdk';
 import { UserService } from '../backend/user.service';
 
 @Injectable({

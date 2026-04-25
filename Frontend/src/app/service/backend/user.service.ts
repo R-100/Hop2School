@@ -54,6 +54,11 @@ export class UserService {
   }
 
   getGeoCodingApiKey(): Promise<string> {
-    return lastValueFrom(this.http.get<string>(`${this.baseUrl}/geoCodingApiKey`));
+    return lastValueFrom(
+      this.http.get(`${this.baseUrl}/geoCodingApiKey`, {
+        responseType: 'text'
+      })
+    );
   }
+
 }

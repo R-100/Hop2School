@@ -16,8 +16,8 @@
             <div class="m-1">
                 <h2 class="flex justify-center text-xl font-bold">{{'label.searchFunction' | translate}}</h2>
                 <mat-divider></mat-divider>
-                <mat-checkbox class="example-margin" [(ngModel)]="isFreeRides" (ngModelChange)="changeFreeRidesStatus($event)">{{'label.onlyFreeRides | translate'}}</mat-checkbox>
-                <mat-checkbox class="example-margin" [(ngModel)]="isRadiusSearchActive" (ngModelChange)="changeRadiusStatus($event)">{{'activeSearchRides' | translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="isFreeRides" (ngModelChange)="changeFreeRidesStatus($event)">{{'label.onlyFreeRides' | translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="isRadiusSearchActive" (ngModelChange)="changeRadiusStatus($event)">{{'label.activeSearchRides' | translate}}</mat-checkbox>
                 <div *ngIf="isRadiusSearchActive" class="flex justify-center">
                     <div class="flex items-center w-full gap-2">
                         <p class="whitespace-nowrap flex-shrink-0">{{ radius }} km</p>

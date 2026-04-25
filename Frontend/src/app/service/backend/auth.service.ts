@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environments';
 export class AuthService {
 
   private baseUrl = `${environment.url}auth`;
-  private token: string = ""; 
+  private token: string = "";
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   isAuthenticated$: Observable<boolean> = this.isAuthenticatedSubject.asObservable();
@@ -30,12 +30,12 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, loginData, { responseType: 'text' })
       .pipe(
         map(token => {
-          this.setSession(token); 
+          this.setSession(token);
+          this.setSession(token);
           return token;
         })
       );
   }
-  
 
   logout(): void {
     localStorage.removeItem('authToken');
@@ -53,12 +53,12 @@ export class AuthService {
     return this.http.get<boolean>(`${this.baseUrl}/isActiveAccount`, { params });
   }
 
-  activeAccount(email: string, password: string, code: string): void {
-    this.http.post(`${this.baseUrl}/isActiveAccount`, {  email, password, code })
-      .subscribe(
-        response => console.log("Erfolg: ", response),
-        error => console.error("Fehler: ", error)
-      );
+  activeAccount(email: string, password: string, code: string) {
+    return this.http.post(`${this.baseUrl}/isActiveAccount`, {
+      email,
+      password,
+      code
+    });
   }
 
   refresMail(email: string): void {
@@ -74,7 +74,7 @@ export class AuthService {
   }
 
   getAuthUser(): Promise<User> {
-    return lastValueFrom(this.http.get<User>(`${this.baseUrl}/getAuthUser/${this.token}`)); 
+    return lastValueFrom(this.http.get<User>(`${this.baseUrl}/getAuthUser/${this.token}`));
   }
 
   passwordValidation(value: string): boolean {
@@ -91,10 +91,10 @@ export class AuthService {
   }
 
   sendUpdatePasswordCodeAnonymous(mail: string): void {
-    lastValueFrom(this.http.post(`${this.baseUrl}/sendUpdatePasswordCodeAnonymous`, mail)); 
+    lastValueFrom(this.http.post(`${this.baseUrl}/sendUpdatePasswordCodeAnonymous`, mail));
   }
 
   updatePasswordAnonymous(command: UpdatePasswordAnonymous): void {
-    lastValueFrom(this.http.post(`${this.baseUrl}/updatePasswordAnonymous`, command)); 
+    lastValueFrom(this.http.post(`${this.baseUrl}/updatePasswordAnonymous`, command));
   }
 }
