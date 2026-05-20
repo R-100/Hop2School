@@ -16,6 +16,9 @@ Hop2School is a full-stack web application for organizing school carpooling.
 The system follows a computer-first (desktop-optimized) UI design, but is fully responsive and adapted for mobile devices.
 It enables secure ride sharing with geo-based search, moderation, communication, and notification systems.
 
+**Status:** Stable / Finished features, under continuous development for improvements
+**Note:** Training and learning project – not intended for production use
+
 **Base authentication system:** https://github.com/R-100/JAS
 
 ## Technischer Stack
