@@ -19,7 +19,7 @@ It enables secure ride sharing with geo-based search, moderation, communication,
 **Status:** Stable / Finished features, under continuous development for improvements
 **Note:** Training and learning project – not intended for production use
 
-**Base authentication system:** https://github.com/R-100/JAS
+**Base authentication system:** [https://github.com/R-100/JAS](https://github.com/R-100/JAS-Java.Angular.Security.git)
 
 ## Technischer Stack
 - Docker
